@@ -1,65 +1,61 @@
-// 19236 juvenile shark
-// max sum fish can eat
-
+// BFS>QUEUE> 16236 아기상어
+/* !! q는 기본 틀 유지하고 pop();기준으로 방송출연(visited=1, 행동)
+ 소개해주기 전이나 생방 전에는 필수로 new_face인지 아닌지 보기 */
+// n, map이 주어진다 1-6물고기크기, 아기상어, 빈칸, 자기보다 크지 않으면 지나가고 작아야 먹는다
+// 먹는 순, 최단거리, y위 x위
 #include <iostream>
-#include <algorithm>
+#include <queue>
 using namespace std;
 
-struct FISH{ int y,x,dir;};
-int n; int map[4][4]; FISH fish[16]; int res{0};
-int dy[] = {-1,-1,0,1,1,1,0,-1}; int dx[] = {0,-1,-1,-1,0,1,1,1};
+int n; int dy[] = {-1, 0, 0, 1}, dx[] = {0, -1, 1, 0};
+int map[20][20]; // bool  visited[20][20];
 
-void dfs(int map[4][4], FISH fish[16], int shark_y, int shark_x, int sum) {
-    // 백트래킹복사한다
-    int selected_map[4][4];
-    FISH selected_fish[16];
-    for(int y=0;y<4;y++){
-        for(int x=0;x<4;x++) selected_map[y][x]= map[y][x];}
-    for(int i=0;i<16;i++) selected_fish[i]= fish[i];
-    
-    //상어가 먹는다
-    int eatten_fish= selected_map[shark_y][shark_x];
-    int shark_dir= selected_fish[eatten_fish].dir;
-    selected_fish[eatten_fish].y=-1; selected_fish[eatten_fish].x=-1;
-    selected_fish[eatten_fish].dir=-1; selected_map[shark_y][shark_x]=-1 ;
-        
-    sum+=(eatten_fish+1);res= max(res, sum);
-        
-    // 물고기들이 움직인다
-    for(int f=0;f<16;f++){
-        //죽은얘는 상종안해!!!!!!!!!!
-        if(selected_fish[f].y==-1) continue;
-        
-        int cy= selected_fish[f].y; int cx= selected_fish[f].x; int cd= selected_fish[f].dir;
-        int ny= cy+dy[cd]; int nx= cx+dx[cd]; int nd=cd;
-        while(ny>3||nx>3||nx<0||ny<0|| (ny==shark_y && nx==shark_x)){
-            nd=(nd+1)%8; ny= cy+dy[nd]; nx= cx+dx[nd];}
-        
-        if(selected_map[ny][nx]!=-1){
-            int next_fish= selected_map[ny][nx];
+struct FISH{ int y,x,time;
+    bool operator<(const FISH f)const{
+        if(f.time==time){
+            if(f.y==y) return f.x<x;
+            return f.y<y;}
+        return f.time<time;}
+    FISH(int a,int b, int c){ y=a; x=b; time=c;}
+};
+
+queue<FISH> q;
+
+int bfs(){
+    int res=0, eat=0,size=2;
+    // q안에 pq이용하려고 q밖에 while(1)쓰고 쓰자마자 pq선언, visited도 바로
+    while (1){
+        priority_queue<FISH> pq; bool visited[20][20]={0,};
             
-            // map
-            selected_map[ny][nx]=f; selected_map[cy][cx]=next_fish;
-            //물고기정보
-            selected_fish[f].y= ny; selected_fish[f].x= nx; selected_fish[f].dir= nd;
-            selected_fish[next_fish].y= cy; selected_fish[next_fish].x= cx;}
+        while (!q.empty()){
+            int cy= q.front().y;int cx= q.front().x;int ct= q.front().time; q.pop();
+            for(int d=0;d<4;d++){
+                int ny = cy+ dy[d]; int nx= cx+dx[d];
+                if(ny>=n||nx>=n||ny<0||nx<0) continue;
+                if(visited[ny][nx]|| map[ny][nx]>size) continue;
+                visited[ny][nx]=1;
+                q.push(FISH(ny,nx,ct+1)); // 필터망
+                if(map[ny][nx]<size && map[ny][nx]!=0){
+                    pq.push(FISH(ny,nx,ct+1));}}}
         
-        else{
-            selected_map[ny][nx]=f; selected_map[cy][cx]=-1;
-            //물고기정보
-            selected_fish[f].y= ny; selected_fish[f].x= nx; selected_fish[f].dir= nd;}}
-    
-    //상어가 이동한다
-    for(int s=1;s<4;s++){
-        int shark_ny= shark_y+ dy[shark_dir]*s; int shark_nx= shark_x+dx[shark_dir]*s;
-        if(shark_ny>3|| shark_ny<0||shark_nx>3|| shark_nx<0) break;
-        // !잊지마! 죽은얘가 아니면 dfs돌린다
-        if(selected_map[shark_ny][shark_nx]!=-1){
-            dfs(selected_map,selected_fish,shark_ny,shark_nx,sum);}}}
+        // 이제 q가 비면 pq타임(먹는다) 이 시작된다
+        if(pq.empty()) break;
+        
+        int eatten_cy=pq.top().y; int eatten_cx=pq.top().x;
+        int eatten_ct=pq.top().time; // pq.pop();   //pop을 하면 왜 안될까?
+        
+        eat++; if(eat== size){ size++; eat=0;}
+        map[eatten_cy][eatten_cx]=0;
+        // 다시 q로 넣는다 먹을땐 시간 0소요 ?
+        q.push(FISH(eatten_cy,eatten_cx,0));
+        res+= eatten_ct;}
+    return res;}
 
 int main(){
-    for(int y=0;y<4;y++){ int a,b;
-        for(int x=0;x<4;x++){ cin>>a>>b;
-            --a; --b; // 이해안가도 유의사항
-            map[y][x]=a; fish[a].y=y; fish[a].x=x; fish[a].dir=b;}}
-    dfs(map, fish,0,0,0); cout<<res<<"\n"; return 0;}
+    ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    cin>>n; for(int y=0;y<n;y++){
+                for(int x=0;x<n;x++){
+                        cin>>map[y][x];
+                        if(map[y][x]==9){
+                            map[y][x]=0; q.push({y,x,0});}}}
+    cout<<bfs()<<"\n"; return 0;}

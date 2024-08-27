@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -175,4 +176,3 @@ void rotate() { //rotation하면 어항정리 참고하면 너무 좋음
         }
     }
 }
-

@@ -1,3 +1,4 @@
+
 //백준 20056
 #include <iostream>
 #include <vector>
@@ -86,4 +87,3 @@ int main() {
     int ret = solve();
     cout<<ret;
     return 0; }
-

@@ -1,3 +1,4 @@
+
 //백준 21608
 #include <iostream>
 #include <vector>
@@ -110,4 +111,3 @@ int main() {
 
     return 0;
 }
-

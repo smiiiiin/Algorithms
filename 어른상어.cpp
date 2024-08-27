@@ -1,3 +1,4 @@
+
 //  백준 19237: 어른상어
 #include <iostream>
 using namespace std;
@@ -99,6 +100,5 @@ cout<<ret;
 return 0;
 
 }
-
 
 

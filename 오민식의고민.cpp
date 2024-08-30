@@ -1,0 +1,87 @@
+
+// 1219 오민식의 고민 : 벨만포드
+// 메모리가 반이 된다
+// #include<cstdio> 하고 scanf("%1d", &map[y][x]); printf("%lld", a);
+#include <iostream>
+#include <vector>
+#include <queue>
+#define MAX 101
+#define INF 987654321
+using namespace std;
+
+int n,m,s,e; vector<pair<int,int>> adj[MAX];
+vector<long long> ans(51, -INF);
+int money[MAX];
+
+// MST 프림함수와 매우 유사 (TV에 나올때 큐는 pop! top or front! 기준
+bool bfs(int s) { //사이클의 유무
+    bool visited[101] = { 0 };
+    queue<int> q; q.push(s);
+    while(!q.empty()){
+        int cur= q.front(); q.pop();
+        if(visited[cur]) continue;
+        visited[cur]=1; if(cur==e) return 1;
+        for(auto next: adj[cur]){
+            if(visited[next.first]) continue;
+            q.push(next.first);}}
+    return 0;}
+
+bool bellman() { //익숙한 벨만에 (매개변수가 생김)
+    ans[s]=money[s];
+    for(int r=0;r<n; r++){
+        for(int cur=0;cur<n;cur++){
+            for(auto next: adj[cur]){
+                if(ans[cur]==-INF) continue;
+                if(ans[next.first]<ans[cur]+ next.second+money[next.first]){
+                    ans[next.first]=ans[cur]+ next.second+money[next.first];
+                    if(r==n-1){
+                        if(bfs(cur)) return 1;}}}}}
+    return 0;}
+
+int main() {
+    cin.tie(0);cout.tie(0); ios_base::sync_with_stdio(1);
+    cin>> n>>s>>e>>m;
+    int a,b,c; for (int i = 0; i < m; i++) { //길에 대한 마이너스 비용
+        cin>>a>>b>>c;
+        adj[a].push_back({b, -c});}
+    
+    for (int i = 0; i < n; i++) cin>>money[i];
+    
+    //무한궤도 bfs도 return 1이고 그다음 연결되서 retun1이면 무한궤도다
+    bool infinite_cycle= bellman();
+    if(infinite_cycle) cout<<"Gee"<<"\n"; // 무한궤도
+    else if( ans[e]==-INF) cout<<"gg"<<"\n"; // 길없음
+    else cout<<ans[e]<<"\n"; // 값나옴
+    return 0;}
+
+
+
+/*
+ 4 0 3 4
+ 0 1 0
+ 0 3 5
+ 1 2 0
+ 2 1 0
+ 0 5 5 10
+ 
+ 답: 5
+ 
+ 
+ 5 0 4 5
+ 0 1 0
+ 1 2 0
+ 2 3 0
+ 3 1 0
+ 0 4 0
+ 0 1 1 1 100
+ 답: Gee
+ 
+ 4 0 3 4
+ 0 1 0
+ 1 3 0
+ 1 2 0
+ 2 1 0
+ 0 1 1 100
+ 답: Gee
+ 
+ */

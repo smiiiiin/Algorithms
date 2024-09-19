@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+int A[4005],B[4005];
+int C[4005],D[4005];
+int dp[16666666];
+int main(){
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+    int n; cin>>n;
+    for(int i=1; i<=n; i++) cin>>A[i]>>B[i]>>C[i]>>D[i];
+    int m = 0;
+    for(int i=1; i<=n; i++){
+        for(int j=1; j<=n; j++) dp[++m] = A[i]+B[j];
+    }
+    sort(dp+1,dp+m+1);
+    long long ans = 0;
+    for(int i=1; i<=n; i++){
+        for(int j=1; j<=n; j++){
+            int s = C[i]+D[j]; s = -s;
+            auto it = upper_bound(dp+1,dp+m+1,s);
+            auto jt = lower_bound(dp+1,dp+m+1,s);
+            ans+=(int)(it - jt);
+        }
+    }
+    cout<<ans;
+}

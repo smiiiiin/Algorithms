@@ -23,8 +23,9 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		2197A1432CB3640100355A02 /* practice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = practice.cpp; sourceTree = SOURCE_ROOT; };
+		2197A1432CB3640100355A02 /* practice.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = practice.cpp; path = "코드판/practice.cpp"; sourceTree = SOURCE_ROOT; };
 		21BE99092CB2D0B800517901 /* 코드판 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "코드판"; sourceTree = BUILT_PRODUCTS_DIR; };
+		21D64C4B2CE193A3000CC2FD /* stdc++.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "stdc++.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +59,17 @@
 			isa = PBXGroup;
 			children = (
 				2197A1432CB3640100355A02 /* practice.cpp */,
+				21D64C472CE18FF7000CC2FD /* bits */,
 			);
 			path = "코드판";
+			sourceTree = "<group>";
+		};
+		21D64C472CE18FF7000CC2FD /* bits */ = {
+			isa = PBXGroup;
+			children = (
+				21D64C4B2CE193A3000CC2FD /* stdc++.h */,
+			);
+			path = bits;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,6 +186,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				"HEADER_SEARCH_PATHS[arch=*]" = "/Users/uin/Desktop/code/코드판/bits/**";
 				MACOSX_DEPLOYMENT_TARGET = 13.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;

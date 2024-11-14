@@ -1,4 +1,3 @@
-
 // 11438: LCA2
 #include<iostream>
 #include<vector>
@@ -63,15 +62,19 @@ int main() {
         
         if (depth[c] < depth[d]) swap(c, d);  // c가 더 깊은 노드 (아래) 가 되도록 설정
         int diff = depth[c] - depth[d];
-        // 아래의 쿼리가 찾을 때 빠르게 찾게해주는 요소 중 하나
-        for (int i = 0; diff; i++) { // 1101(13)차이면 4번 묻는거임
+        /* 아래의 쿼리가 찾을 때 빠르게 찾게해주는 요소 중 하나
+           1101(13)차이면 4번 묻는거임 "diff >>= 1; " 코드 때문에*/
+        for (int i = 0; diff; i++) {
             if (diff & 1) c = parents[c][i]; // 맨끝부터 읽는거임 1(올려야하냐)이냐?
             diff >>= 1; // 처리 완의 느낌 1101-> 110이 된다 >>오른쪽으로 한칸 미는 거니깐
         }
+        /* c = parents[c][i]; 지금이게. 각 노드마다 parents[node][parent]; depth[node]가 있으니까. 이 2개를 수정한 건 아니야. c만 수정하고 있는거야. 맞아?
+         */
 
         // c와 d가 다르면 LCA를 찾기 위해 둘을 같은 레벨로 올림
         // 정보를 어떻게 변화시키는 가
         if (c != d) {
+            
             for (int i = MAX - 1; i >= 0; i--) {
                 if (parents[c][i] != parents[d][i]) {
                     c = parents[c][i];

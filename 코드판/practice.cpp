@@ -21,7 +21,7 @@ int parents[NOODNUM][MAX]; // 부모 배열: parents[노드][2^n번째 부모]
 // BFS로 각 노드의 깊이와 1번째 부모를 설정
 void depth_bfs() {
     queue<int> q; q.push(1);  depth[1] = 0;  // 루트 노드의 깊이는 0
-
+    
     while (!q.empty()) {
         int cur = q.front(); q.pop();
         for (auto next : adj[cur]) {
@@ -35,55 +35,63 @@ void depth_bfs() {
 
 int main() {
     ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
-
-    int n, m;  cin >> n; int a, b;
+    
+    int n, m;  cout<<"노드의 개수입력: "; cin >> n; int a, b;
     //노드의 개수, 노드를 양방향 연결
     for (int i = 1; i < n; i++) {
-        cin >> a >> b; adj[a].push_back(b); adj[b].push_back(a); }
-
+        cout<< "노드 a,b 입력: "; cin >> a >> b; adj[a].push_back(b); adj[b].push_back(a);
+        cout<<'\n';
+    }
+    
     // 초기화
     memset(parents, -1, sizeof(parents));  // 부모 배열을 -1로 초기화
     memset(depth, -1, sizeof(depth));  // 깊이 배열을 -1로 초기화
     
     depth_bfs();
-
+    
     // 부모 배열 채우기: (2^x)번째 부모 설정 = 트리라서 10만명이 있으면 최대부모가 log(10만)이다.
     for (int x = 1; x < MAX; x++) {
         for (int y = 1; y <= n; y++) {
-            if (parents[y][x - 1] != -1) {
-                parents[y][x] = parents[parents[y][x - 1]][x - 1];
-            }
+            if (parents[y][x - 1] == -1) continue;
+            parents[y][x] = parents[parents[y][x - 1]][x - 1];
+            
         }
     }
-
+    
     //질문(쿼리)의 개수
-    cin >> m;
-    while (m--) { int c, d; cin >> c >> d;
-        
-        if (depth[c] < depth[d]) swap(c, d);  // c가 더 깊은 노드 (아래) 가 되도록 설정
-        int diff = depth[c] - depth[d];
-        // 아래의 쿼리가 찾을 때 빠르게 찾게해주는 요소 중 하나
-        for (int i = 0; diff; i++) { // 1101(13)차이면 4번 묻는거임
-            if (diff & 1) c = parents[c][i]; // 맨끝부터 읽는거임 1(올려야하냐)이냐?
-            diff >>= 1; // 처리 완의 느낌 1101-> 110이 된다 >>오른쪽으로 한칸 미는 거니깐
-        }
-
-        // c와 d가 다르면 LCA를 찾기 위해 둘을 같은 레벨로 올림
-        // 정보를 어떻게 변화시키는 가
-        if (c != d) {
-            for (int i = MAX - 1; i >= 0; i--) {
-                if (parents[c][i] != parents[d][i]) {
-                    c = parents[c][i];
-                    d = parents[d][i];
-                }
-            }
-            c = parents[c][0];  // 최종 LCA
-        }
-
-        cout << c << '\n';
+    int c, d; cin >> c >> d;
+    
+    if (depth[c] < depth[d]) swap(c, d);  // c가 더 깊은 노드 (아래) 가 되도록 설정
+    int diff = depth[c] - depth[d];
+    /* 아래의 쿼리가 찾을 때 빠르게 찾게해주는 요소 중 하나
+     1101(13)차이면 4번 묻는거임 "diff >>= 1; " 코드 때문에*/
+    for (int i = 0; diff; i++) {
+        if (diff & 1) c = parents[c][i]; // 맨끝부터 읽는거임 1(올려야하냐)이냐?
+        diff >>= 1; // 처리 완의 느낌 1101-> 110이 된다 >>오른쪽으로 한칸 미는 거니깐
     }
-
+    /* c = parents[c][i]; 지금이게. 각 노드마다 parents[node][parent]; depth[node]가 있으니까. 이 2개를 수정한 건 아니야. c만 수정하고 있는거야. 맞아?
+     */
+    
+    // c와 d가 다르면 LCA를 찾기 위해 둘을 같은 레벨로 올림
+    // 정보를 어떻게 변화시키는 가
+    if (c != d) {
+        
+        for (int i = MAX - 1; i >= 0; i--) {
+            if (parents[c][i] != parents[d][i]) {
+                c = parents[c][i];
+                d = parents[d][i];
+                cout<<"c 와 d 과정: "<<c<<","<<d<<'\n';
+                
+            }
+        }
+        c = parents[c][0];  // 최종 LCA
+    }
+    
+    cout << "최종lca= "<<c << '\n';
+    
+    
     return 0;
 }
+
 
 

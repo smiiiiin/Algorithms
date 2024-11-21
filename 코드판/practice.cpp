@@ -58,7 +58,7 @@ int main() {
         }
     }
     
-    //질문(쿼리)의 개수
+    // 궁금한 노드 2개
     int c, d; cin >> c >> d;
     
     if (depth[c] < depth[d]) swap(c, d);  // c가 더 깊은 노드 (아래) 가 되도록 설정
@@ -74,22 +74,18 @@ int main() {
     
     // c와 d가 다르면 LCA를 찾기 위해 둘을 같은 레벨로 올림
     // 정보를 어떻게 변화시키는 가
+    // depth가 달라도 부모가 다르면 의미가 없다. 같을떄까지 올려. easy한거야~
     if (c != d) {
-        
-        for (int i = MAX - 1; i >= 0; i--) {
+        for (int i = MAX - 1; i >= 0; i--) { //0부터 해야지 최소공통조상을 찾는거 아닌가?
             if (parents[c][i] != parents[d][i]) {
                 c = parents[c][i];
                 d = parents[d][i];
                 cout<<"c 와 d 과정: "<<c<<","<<d<<'\n';
-                
             }
         }
-        c = parents[c][0];  // 최종 LCA
     }
     
-    cout << "최종lca= "<<c << '\n';
-    
-    
+    cout << "최종lca= "<< parents[c][0] << '\n';
     return 0;
 }
 

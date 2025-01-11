@@ -3,6 +3,7 @@ using namespace std;
 int A[4005],B[4005];
 int C[4005],D[4005];
 int dp[16666666];
+//
 int main(){
     ios_base::sync_with_stdio(false); cin.tie(NULL);
     int n; cin>>n;

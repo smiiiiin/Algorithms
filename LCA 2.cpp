@@ -4,9 +4,6 @@
 #include<queue>
 #include<cstring>
 using namespace std;
-
-
-
 /*
  입력: 각 노드별로 연결된 트리! (그래프 아님, 그러나 이진트리도 일 필요없이 자식 많아도 됨)
  출력: 두개의 노드를 입력 시, LCA(최소공통부모노드) 출력

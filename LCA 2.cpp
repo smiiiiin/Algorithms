@@ -10,6 +10,7 @@ using namespace std;
  !!! 2^n으로 저장하지 않으면, 최악의 경우 배열같이 일직선도 트리기 떄문이다. 그러면 10만번째 부모가 있을 수 있음.O(n)
  */
 
+
 const int MAX = 18;  // 2^17까지 확인하기 때문에 18로 설정
 const int NOODNUM = 100001;
 vector<int> adj[NOODNUM];  // 트리의 인접 리스트

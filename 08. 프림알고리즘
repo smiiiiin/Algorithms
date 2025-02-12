@@ -1,0 +1,39 @@
+// 1922 네트워크 연결 : 트리- Prim 알고리즘
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#define  MAX 1001
+using namespace std;
+
+struct NODE{ int from, to, cost;
+    NODE(int a, int b, int c){
+        from=a; to= b; cost=c;}
+    bool operator<(const NODE n)const{
+        return n.cost>cost;}};
+
+int n,m,sum{0}; int parent[MAX]; vector<NODE> v;
+
+int find(int x){
+    if(x==parent[x]) return x;
+    return parent[x]= find(parent[x]);}
+
+void join(int a, int b){
+    a=find(a); b= find(b);
+    if(a==b) return;
+    parent[b]=a;}
+
+int main(){
+    cin>>n>>m;
+    int a,b,c;
+    for(int i=1;i<=n;i++) parent[i]=i;
+    v.push_back(NODE(0,0,-1));
+    for(int i=1;i<=m;i++) {
+        cin>>a>>b>>c; v.push_back(NODE(a,b,c));}
+    
+    sort(v.begin(), v.end());
+    for(int i=1;i<=m;i++){
+        if(find(v[i].from)!=find(v[i].to)){
+            sum+= v[i].cost;
+            join(v[i].from, v[i].to);}}
+    cout<<sum<<"\n";
+    return 0;}

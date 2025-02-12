@@ -1,0 +1,44 @@
+//1753번 백준
+
+
+#include <iostream>
+#include <vector>
+#include <queue>
+using namespace std;
+#define MAX 20001
+#define INF 987654321
+
+struct NODE{int to, cost;
+    NODE(int a, int b){
+        to=a; cost=b;}
+    bool operator < (const NODE n) const{
+       return n.cost<cost;
+    }
+};
+
+vector<NODE> adj[MAX]; priority_queue<NODE> pq; vector<int> ans(MAX, INF);
+
+void daikstra(int s){
+    ans[s]=0; pq.push({s,0});
+    while(!pq.empty()){
+        int cn= pq.top().to; pq.pop();
+        for(auto i: adj[cn]){
+            int nn=i.to; int nc= ans[cn]+i.cost;
+            if(ans[nn]>nc){ ans[nn]=nc; pq.push({nn,nc});}
+        }
+    }
+}
+
+int main()
+{
+    int n,m,s,a,b,c;
+    cin>>n>>m; cin>>s;
+    for(int i=1;i<=m;i++){
+        cin>>a>>b>>c; adj[a].push_back({b,c});
+    }
+    daikstra(s);
+    for(int i=1;i<=n;i++){
+        cout<<((ans[i]!=INF) ? to_string(ans[i]): "INF")<<'\n';
+    }
+    return 0;
+}

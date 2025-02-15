@@ -9,6 +9,8 @@
 #define INF 987654321
 using namespace std;
 
+
+
 int n,m,s,e; vector<pair<int,int>> adj[MAX];
 vector<long long> ans(51, -INF);
 int money[MAX];

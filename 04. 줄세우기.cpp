@@ -22,3 +22,6 @@ int main(){
         int a,b; cin>>a>>b; adj[a].push_back(b); inDegree[b]++;}
     DAG(); return 0;}
     
+
+
+

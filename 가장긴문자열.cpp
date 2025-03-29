@@ -142,3 +142,6 @@ int Mod(ll n){
     if(n>=0) return n%MOD;  // 양수인 경우
     return ( (-n/MOD + 1)*MOD + n)%MOD;  // 양수가 아닌 경우
 }
+
+
+

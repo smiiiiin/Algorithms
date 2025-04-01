@@ -70,7 +70,6 @@ int main() {
         }
         /* c = parents[c][i]; 지금이게. 각 노드마다 parents[node][parent]; depth[node]가 있으니까. 이 2개를 수정한 건 아니야. c만 수정하고 있는거야. 맞아?
          */
-
         // c와 d가 다르면 LCA를 찾기 위해 둘을 같은 레벨로 올림
         // 정보를 어떻게 변화시키는 가
         if (c != d) {

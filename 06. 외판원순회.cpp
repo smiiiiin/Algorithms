@@ -29,4 +29,4 @@ int main(){
     for(int y=0;y<n;y++){
                 for(int x=0;x<n;x++) cin>>weight[y][x];}
     cout<<tsp(0,1)<<"\n"; return 0;}
-ㄴ
+

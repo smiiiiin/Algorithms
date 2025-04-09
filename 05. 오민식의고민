@@ -1,3 +1,4 @@
+
 // 1219 오민식의 고민 : 벨만포드
 // 메모리가 반이 된다
 // #include<cstdio> 하고 scanf("%1d", &map[y][x]); printf("%lld", a);

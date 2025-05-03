@@ -1,3 +1,4 @@
+
 /* https://suhwanc.tistory.com/23 */
 //백준 2873 rollercoaster
 #include <iostream>

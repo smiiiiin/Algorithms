@@ -1,3 +1,5 @@
+
+
 // 5419 북서풍: Fenwick Tree
 #include <iostream>
 #include <algorithm>

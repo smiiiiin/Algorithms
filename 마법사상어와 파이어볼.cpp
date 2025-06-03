@@ -1,6 +1,3 @@
-
-
-
 //백준 20056
 #include <iostream>
 #include <vector>

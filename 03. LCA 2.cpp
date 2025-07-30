@@ -1,6 +1,3 @@
-
-
-
 // 11438: LCA2
 #include<iostream>
 #include<vector>

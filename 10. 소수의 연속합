@@ -1,5 +1,5 @@
 
-//백준1644 소수의 연속합 : 큐로
+//백준1644 소수의 연속합 : 큐 QUEUE
 #include <cstdio>
 #include <vector>
 #include <algorithm>

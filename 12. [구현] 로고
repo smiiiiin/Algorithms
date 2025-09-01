@@ -1,6 +1,5 @@
-
-//백준 3108 로고
-
+// 백준 3108 로고
+// 
 #include<iostream>
 #define MAX 2001
 using namespace std;

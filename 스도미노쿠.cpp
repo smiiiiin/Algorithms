@@ -32,6 +32,7 @@ bool go(int z) {
             cout << '\n';}
         return 1;}
     int y = z%n; int x = z/n;
+    // y는 몇번째 열인지, x는 몇변째 행인지.
     
     if (a[x][y] != 0) return go(z+1);
     else {

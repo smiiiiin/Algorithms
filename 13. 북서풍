@@ -1,6 +1,4 @@
-
-
-// 5419 북서풍: Fenwick Tree
+// 5419 북서풍: 펜윅트리 
 #include <iostream>
 #include <algorithm>
 #include <vector>

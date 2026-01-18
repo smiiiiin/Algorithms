@@ -6,11 +6,9 @@
 using namespace std;
 int parent[MAX];
 
-
 int find(int x){
     if(x==parent[x]) return x;
     return parent[x]=find(parent[x]);}
-
 
 void join(int a,int b){
     a= find(a); b= find(b);

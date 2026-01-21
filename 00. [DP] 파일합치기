@@ -15,7 +15,7 @@ int main(){
             cin>>a;
             sum[i]=sum[i-1]+a;
         }
-        
+        // for문이 핵심인데 이해가 안거
         for(int k=1;k<n;k++){
             int i=1;
             int j=k+1;

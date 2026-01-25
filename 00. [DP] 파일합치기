@@ -28,6 +28,21 @@ int main(){
                 j++;
             }
         }
+
+// 이렇게 만들면 안됨?
+for (int len = 1; len < n; len++) {          // 구간 길이
+    for (int i = 1; i + len <= n; i++) {     // 구간 시작
+        int j = i + len;                     // 구간 끝
+        dp[i][j] = 1e9;
+
+        for (int m = i; m < j; m++) {        // 분할 지점
+            dp[i][j] = min(dp[i][j],
+                dp[i][m] + dp[m+1][j] + sum[j] - sum[i-1]);
+        }
+    }
+}
+
+
         
         cout<<dp[1][n]<<"\n";
     }

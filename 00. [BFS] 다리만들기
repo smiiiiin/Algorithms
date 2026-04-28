@@ -82,7 +82,7 @@ int getBridge(int num){
         dist++; // 한 칸 확장
     }
 
-    return dist;
+    return dist; // 의미는 없지만 컴파일 안전용;
 }
 
 int main(){

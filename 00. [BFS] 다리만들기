@@ -21,7 +21,8 @@ void labelIsland(int y, int x, int num) {
     map[y][x] = num;
 
     while(!q.empty()) {
-        auto [cy, cx] = q.front(); q.pop();
+        auto [cy, cx] = q.front(); // cy= q.front().first; cx= q.front().second;
+        q.pop();
 
         for(int d=0; d<4; d++){
             int ny = cy + dy[d];

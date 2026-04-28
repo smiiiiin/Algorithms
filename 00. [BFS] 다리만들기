@@ -48,10 +48,10 @@ int getBridge(int num){
         for(int j=0;j<n;j++){
             if(map[i][j]==num){
                 q.push({i,j});
-                visited[i][j]=true;
-            }
-        }
-    }
+                visited[i][j]=true;}
+            
+                            }
+                        }
 
     int dist = 0;
 
@@ -77,13 +77,12 @@ int getBridge(int num){
                     visited[ny][nx] = true;
                     q.push({ny,nx});
                 }
-            }
-        }
+                                  }
+                                }
         dist++; // 한 칸 확장
-    }
-
+                      }
     return -1; // 의미는 없지만 컴파일 안전용;
-}
+    }
 
 int main(){
     cin >> n;

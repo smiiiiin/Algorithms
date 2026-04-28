@@ -59,7 +59,8 @@ int getBridge(int num){
         int size = q.size();
 
         for(int i=0;i<size;i++){
-            auto [y,x] = q.front(); q.pop();
+            auto [y,x] = q.front(); 
+            q.pop();
 
             for(int d=0; d<4; d++){
                 int ny = y + dy[d];

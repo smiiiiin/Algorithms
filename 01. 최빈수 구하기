@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+
+    for(int tc = 1; tc <= T; tc++) {
+
+        int n;
+        cin >> n;
+
+        vector<int> freq(101, 0); // 점수 범위가 0~100이라고 가정
+
+        // 입력 받으면서 빈도 증가
+        for(int i = 0; i < 1000; i++) {
+            int x;
+            cin >> x;
+            freq[x]++;
+        }
+
+        int maxFreq = 0;
+        int answer = 0;
+
+        // 최빈수 찾기
+        for(int i = 0; i <= 100; i++) {
+
+            // 더 많이 나온 경우
+            if(freq[i] > maxFreq) {
+                maxFreq = freq[i];
+                answer = i;
+            }
+
+            // 빈도 같으면 더 큰 값 선택
+            else if(freq[i] == maxFreq) {
+                answer = i;
+            }
+        }
+
+        cout << "#" << tc << " " << answer << '\n';
+    }
+
+    return 0;
+}

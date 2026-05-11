@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+
+    for(int tc = 1; tc <= T; tc++) {
+
+        int n;
+        cin >> n;
+
+        vector<vector<int>> arr(n, vector<int>(n, 0));
+
+        // 우 하 좌 상
+        int dx[4] = {0, 1, 0, -1};
+        int dy[4] = {1, 0, -1, 0};
+
+        int x = 0;
+        int y = 0;
+        int dir = 0;
+
+        for(int num = 1; num <= n * n; num++) {
+
+            arr[x][y] = num;
+
+            int nx = x + dx[dir];
+            int ny = y + dy[dir];
+
+            // 범위 밖 or 이미 숫자 있으면 방향 변경
+            if(nx < 0 || ny < 0 || nx >= n || ny >= n || arr[nx][ny] != 0) {
+                dir = (dir + 1) % 4;
+
+                nx = x + dx[dir];
+                ny = y + dy[dir];
+            }
+
+            x = nx;
+            y = ny;
+        }
+
+        cout << "#" << tc << '\n';
+
+        for(int i = 0; i < n; i++) {
+            for(int j = 0; j < n; j++) {
+                cout << arr[i][j] << ' ';
+            }
+            cout << '\n';
+        }
+    }
+
+    return 0;
+}

@@ -1,0 +1,24 @@
+#include <iostream>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int T;
+    cin >> T;
+
+    for (int tc = 1; tc <= T; tc++) {
+        int x, maxVal = 0;
+
+        for (int i = 0; i < 10; i++) {
+            cin >> x;
+            maxVal= max(maxVal,x);
+        }
+
+        cout << "#" << tc << " " << maxVal << '\n';
+    }
+
+    return 0;
+}

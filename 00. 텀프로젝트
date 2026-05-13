@@ -11,10 +11,10 @@ void dfs(int cur){
     if(visited[cur]==-1) visited[cur]=1;
     int next= arr[cur];
     if(visited[next]==-1) dfs(next);
-    else if(visited[next]!=2){
+    else if(visited[next]==1){ //1:진행중
             for(int i=next; i!=cur;i=arr[i]) cnt++;
             cnt++;}
-        visited[cur]=2;}
+        visited[cur]=2;} //2:완료 의미 
 
 int main() {
     ios::sync_with_stdio(false); cin.tie(0); cout.tie(0);

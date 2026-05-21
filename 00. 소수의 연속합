@@ -1,33 +1,52 @@
-
-//백준1644 소수의 연속합 : 큐 QUEUE
+// 백준 1644 소수의 연속합
 #include <cstdio>
 #include <vector>
-#include <algorithm>
 #include <queue>
-#include <cstring>
 using namespace std;
 
-int main(void) {
-    int ans; vector<bool> check; vector<int> prime;
-    scanf("%d", &ans);
-    check.resize(ans + 1, true);
+int main() {
+    int n;
+    scanf("%d", &n);
 
-    //소수만들기
-    for(int i=2;i*i<=ans;i++){ //i는 루트 n까지만 보면 된다.
-        for(int j=i; i*j <=ans;j++){
-            //check인덱스 안에 들어가는 수 i*j가 <=n일때까지
-            check[i*j]=0;}}
+    vector<bool> check(n + 1, true);
+    vector<int> prime;
 
-    for (int i = 2; i <= ans ; i++) {
-            if (check[i]) prime.push_back(i);}
+    // 0,1은 소수 아님
+    if(n >= 0) check[0] = false;
+    if(n >= 1) check[1] = false;
 
-    queue<int> q; int sum{0},cnt{0};
-    
-    for(int i=0;i<prime.size();i++) {
-        q.push(prime[i]); sum+=prime[i];
-        while(sum>ans) {int cur= q.front(); sum-=cur; q.pop();}
-        if(sum==ans) cnt++;}
-    
-    printf("%d", cnt);
+    // 에라토스테네스의 체
+    for(int i = 2; i * i <= n; i++) {
+        if(check[i]) {
+            for(int j = i * i; j <= n; j += i) {
+                check[j] = false;
+            }
+        }
+    }
+
+    // 소수 저장
+    for(int i = 2; i <= n; i++) {
+        if(check[i]) prime.push_back(i);
+    }
+
+    queue<int> q;
+    int sum = 0;
+    int cnt = 0;
+
+    // 투포인터 느낌
+    for(int i = 0; i < prime.size(); i++) {
+        q.push(prime[i]);
+        sum += prime[i];
+
+        while(sum > n && !q.empty()) {
+            sum -= q.front();
+            q.pop();
+        }
+
+        if(sum == n) cnt++;
+    }
+
+    printf("%d\n", cnt);
+
     return 0;
 }

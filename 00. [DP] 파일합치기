@@ -32,6 +32,7 @@ int main() {
                 dp[y][x] = min(dp[y][x],
                     dp[y][mid] + dp[mid + 1][x]+ sum[x] - sum[y - 1]);}}}
     
+// dp[3]= (dp[2]+a[3], dp[3]); 
 
 
 

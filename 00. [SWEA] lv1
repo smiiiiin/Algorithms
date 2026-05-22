@@ -68,3 +68,18 @@ p>>in; 범위는 0~999
 void get_factors(int n){
    for(int i=1;i*i<=n;i++) //1부터! 0으로 못나눠 바부야~
   …
+
+
+11
+1) string "1004"와 1004의 교환
+to_string(), stoi()
+
+2) char '3'과 int 3의 교환 (=무조건 '0'을 해라)
+char c='3'; int num;
+int num= c-'0'; // '3'에서 3이 된다. 
+char c= num-'0';  // 3에서 '3'이 된다.  
+
+3) 'a'를 97로 하려면 형변환만 해라.
+char c= 'a';
+int num= c; // num은 97이다. 
+

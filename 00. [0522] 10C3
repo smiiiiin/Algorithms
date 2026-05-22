@@ -1,0 +1,37 @@
+DFS] 10C3을 DFS로 구현해보자. 
+배열에 10가지 수를 넣고 3개를 뽑는 조합을 자리 기준으로..
+값은 다 다르다고 가정하자. 
+
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int v[10];
+vector<int> comb;
+vector<vector<int>> res;
+
+void dfs(int idx, int cnt) {
+    if (cnt == 3) {
+        res.push_back(comb);
+        return;
+    }
+
+    for (int i = idx; i < 10; i++) {
+        comb.push_back(v[i]);
+        dfs(i + 1, cnt + 1); // idx+1을 선택 하는 경우
+        comb.pop_back(); // 안하는 경우
+    }
+}
+
+int main() {
+    for (int i = 0; i < 10; i++)
+        v[i] = i + 1;
+
+    dfs(0, 0);
+
+    for (auto &c : res) {
+        for (int x : c)
+            cout << x << " ";
+        cout << "\n";
+    }
+}

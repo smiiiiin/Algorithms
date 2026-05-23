@@ -41,7 +41,7 @@ bool bfs(int sy, int sx) {
             q.push({ny, nx});
         }
     }
-
+    // break; 와 달리 (반복문종결) return은 함수 종결
     return false;
 }
 

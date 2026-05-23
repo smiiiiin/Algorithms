@@ -7,33 +7,33 @@ int main() {
     int n;
     scanf("%d", &n);
 
-    vector<bool> check(n + 1, true);
-    vector<int> prime;
+    vector<bool> prime(n + 1, true);
+    vector<int> res;
 
     // 0, 1은 소수 아님
-    if(n >= 0) check[0] = false;
-    if(n >= 1) check[1] = false;
+    if(n >= 0) prime[0] = false;
+    if(n >= 1) prime[1] = false;
 
     // 에라토스테네스의 체
     for(int i = 2; i * i <= n; i++) {
 
-        if(check[i]) {
+        if(prime[i]) {
 
             for(int j = i * i; j <= n; j += i) {
-                check[j] = false;
+                prime[j] = false;
             }
         }
     }
 
     // 소수 저장
     for(int i = 2; i <= n; i++) {
-        if(check[i]) {
-            prime.push_back(i);
+        if(prime[i]) {
+            res.push_back(i);
         }
     }
 
     // 출력
-    for(auto x : prime) {
+    for(auto x : res) {
         printf("%d ", x);
     }
 

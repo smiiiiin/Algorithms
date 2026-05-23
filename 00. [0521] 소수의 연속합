@@ -1,4 +1,4 @@
-// 백준 1644 소수의 연속합
+// 소수 만들기
 #include <cstdio>
 #include <vector>
 #include <queue>
@@ -28,25 +28,6 @@ int main() {
     for(int i = 2; i <= n; i++) {
         if(check[i]) prime.push_back(i);
     }
-
-    queue<int> q;
-    int sum = 0;
-    int cnt = 0;
-
-    // 투포인터 느낌
-    for(int i = 0; i < prime.size(); i++) {
-        q.push(prime[i]);
-        sum += prime[i];
-
-        while(sum > n && !q.empty()) {
-            sum -= q.front();
-            q.pop();
-        }
-
-        if(sum == n) cnt++;
-    }
-
-    printf("%d\n", cnt);
 
     return 0;
 }

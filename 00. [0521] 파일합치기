@@ -1,39 +1,30 @@
-// dp (배열에서 합들의 중간계산값들의) 의 최소값
-// 10 40 30 20. 15 10 이렇게 있으면, 앞부터 더하면 10+40= 50 ,50+30=80, 80+20=100 따라서 50+80+100= 230 
-// 앞에 두개+ 뒤에 두개 묶으면 10+40, 30+20, >> 50+50+100>> 200 이런 식.
-
 #include <iostream>
 #include <algorithm>
 using namespace std;
 
-int n, a; int dp[501][501]; int sum[501];
+int n; int dp[501][501]; int sum[501];
 
 int main() {
     ios::sync_with_stdio(false); cin.tie(nullptr);
-    cin >> n; sum[0] = 0;
+    cin >> n;
+    for(int i = 1; i <= n; i++) {
 
+        int x; cin >> x;
+        sum[i] = sum[i - 1] + x;
+    }
+    // len : 구간 길이
+    for(int len = 1; len < n; len++) {
+        // s : 시작점
+        for(int s = 1; s + len <= n; s++) {
+            int e = s + len; dp[s][e] = 1e9;
+            // 분할 위치
+            for(int m = s; m < e; m++) {
 
-
-
-    for (int i = 1; i <= n; i++) {
-        cin >> a;
-        sum[i] = sum[i - 1] + a;
+                dp[s][e] = min( dp[s][e],  dp[s][m] + dp[m + 1][e] + (sum[e] - sum[s - 1])
+                );
+            }
+        }
     }
 
-
-
-    for (int len = 1; len < n; len++) { // 구간 길이
-        for (int y = 1; y + len <= n; y++) { // 시작점
-            int x = y + len; // 끝점
-
-            dp[y][x] = 1e9;
-
-            for (int mid = y; mid < x; mid++) { // 분할
-                dp[y][x] = min(dp[y][x],
-                    dp[y][mid] + dp[mid + 1][x]+ sum[x] - sum[y - 1]);}}}
-    
-// dp[3]= (dp[2]+a[3], dp[3]); 
-
-
-
-    cout << dp[1][n] << "\n"; return 0;}
+    cout << dp[1][n] << '\n';
+    return 0;}

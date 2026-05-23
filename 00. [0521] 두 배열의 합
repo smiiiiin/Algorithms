@@ -44,9 +44,9 @@ int main() {
 
         int target = T - v;
 
-        int high = upper_bound(sumB.begin(), sumB.end(), target) - sumB.begin();
+        int high = upper_bound(sumB.begin(), sumB.end(), target) ;
 
-        int low = lower_bound(sumB.begin(), sumB.end(), target) - sumB.begin();
+        int low = lower_bound(sumB.begin(), sumB.end(), target) ;
 
         result += (high - low);
     }

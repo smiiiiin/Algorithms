@@ -19,7 +19,7 @@ int main() {
             int e = s + len; dp[s][e] = 1e9;
             // 분할 위치
             for(int m = s; m < e; m++) {
-
+                //dp[3]= min(dp[3], dp[2]+arr[3]); 이런느낌
                 dp[s][e] = min( dp[s][e],  dp[s][m] + dp[m + 1][e] + (sum[e] - sum[s - 1])
                 );
             }

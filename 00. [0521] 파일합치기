@@ -1,6 +1,7 @@
+// 파일을 '+'더할때 전체 값을 더하기 때문이다
+
 #include <iostream>
 #include <algorithm>
-// 10c3
 using namespace std;
 
 int n; int dp[101][101]; int sum[101];

@@ -1,0 +1,53 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+
+const int N = 100;
+ll tree[N + 1];
+ll A[N + 1];
+
+// update: i 위치에 val 추가
+void update(int i, ll val) {
+    while (i <= N) {
+        tree[i] += val;
+        i += (i & -i);
+    }
+}
+
+// 1~i 합
+ll sum(int i) {
+    ll res = 0;
+    while (i > 0) {
+        res += tree[i];
+        i -= (i & -i);
+    }
+    return res;
+}
+
+int main() {
+    // 1. 입력 받기 (각기 다른 값)
+    for (int i = 1; i <= N; i++) {
+        cin >> A[i];
+        update(i, A[i]);
+    }
+
+    // 2. 1~50 구간합 출력
+    cout << sum(50) << "\n";
+}
+
+
+/*
+*펜윅트리가 prefix(누적합배열)보다 좋은 이유
+1-100 중 50을 수정한다고 가정하면,
+prefix는 50~100까지의 배열을 다 바꿔야 한다.
+반면, prefix는 50= 32 16 0 0 2 0 
+50> 52> 52의 lowbit=4> 56> 56의  lowbit는 8> 64 이렇게 
+50, 52, 56, 64 4번만 수정하면 된다 *update
+tree[65]~tree[100]은 tree[50]의 값이 수정 될때 영향을 받지 않는다. 
+tree[65]=(1~64)tree[64]+(65)tree[65] 이런데 이미 64는 업데이트 되어있기 때문이다. 
+
+반대로 값을 더할때는 idx를 빼주면서 하면 된다.
+만약 1-67 까지의 합을 더하고 싶으면
+67= 64 0 0 0 0 2 1 이기 때문에 
+tree[67]+tree[66]+tree[64]를 해주면 된다. */

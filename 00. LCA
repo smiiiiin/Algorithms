@@ -1,0 +1,99 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <cstring>
+using namespace std;
+
+const int MAX = 18;
+const int NN = 100001;
+
+vector<int> adj[NN];
+int depth[NN];
+int parent[NN][MAX];
+
+void bfs(int root) {
+    queue<int> q;
+    q.push(root);
+    depth[root] = 0;
+    parent[root][0] = -1;
+
+    while (!q.empty()) {
+        int cur = q.front();
+        q.pop();
+
+        for (int nxt : adj[cur]) {
+            if (depth[nxt] != -1) continue;
+
+            depth[nxt] = depth[cur] + 1;
+            parent[nxt][0] = cur;
+            q.push(nxt);
+        }
+    }
+}
+
+int lca(int a, int b, int n) {
+   
+if(depth[a]<depth[b]) swap(depth[a], depth[b]);
+int diff= depth[a]-depth[b];
+
+for(int i=0;diff>0;i++){
+   if(diff&1) a= parent[a][i];
+   diff>>=1;}
+
+    if (a == b) return a;
+
+    // 같이 올라가면서 분리 지점 찾기
+   // 큰 점프 17부터 시작하면 대부분 같을거야. 
+   노드 없는 경우 -1로 동일. 그러면 올리지 않아. 
+    for (int i = MAX - 1; i >= 0; i--) {
+        if (parent[a][i] != parent[b][i]) {
+            a = parent[a][i];
+            b = parent[b][i];
+        }
+    }
+    // 다를 경우에만 올라가기때문에 무조건 lca 그 직전까지와있음. 
+    return parent[a][0];
+}
+
+
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin >> n;
+
+    for (int i = 1; i < n; i++) {
+        int a, b;
+        cin >> a >> b;
+        adj[a].push_back(b);
+        adj[b].push_back(a);
+    }
+
+    memset(depth, -1, sizeof(depth));
+    memset(parent, -1, sizeof(parent));
+
+    bfs(1);
+
+    // binary lifting table 채우기
+    for (int k = 1; k < MAX; k++) {
+        for (int node = 1; node <= n; node++) {
+            if (parent[node][k - 1] != -1) {
+                parent[node][k] =
+                    parent[parent[node][k - 1]][k - 1];
+            }
+        }
+    }
+
+    int q;
+    cin >> q;
+
+    while (q--) {
+        int a, b;
+        cin >> a >> b;
+        cout << lca(a, b, n) << '\n';
+    }
+
+    return 0;
+}

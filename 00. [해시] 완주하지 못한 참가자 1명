@@ -1,0 +1,33 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+string solution(vector<string> participant, vector<string> completion)
+{
+    string answer = "";
+    unordered_map<string, int> map;
+    for (auto player : participant) map[player]++;
+
+    for (auto player : completion)
+        map[player]--;
+
+    for(auto player : participant)
+        if (map[player] > 0)
+        {
+            answer = player;
+            break;
+        }
+    return answer;
+}
+
+int main(void)
+{
+    vector<string> part = {"leo", "kiki", "eden"};
+    vector<string> comp = {"eden", "kiki"};
+    cout << solution(part, comp);
+    return 0;
+}
+출처: https://coding-grandpa.tistory.com/89 [개발자로 취직하기:티스토리]

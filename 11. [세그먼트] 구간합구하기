@@ -1,3 +1,5 @@
+
+
 // 2042 구간 합 구하기: 세그먼트 트리 (update가 잦고 구간합 구할 때)
 #include <iostream>
 using namespace std;

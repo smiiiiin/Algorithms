@@ -1,3 +1,5 @@
+// 2~3까지 갈 수 있는 길이 있는지 없는지의 여부 (1/0)
+
 #include <iostream>
 #include <queue>
 #include <string>

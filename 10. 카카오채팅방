@@ -18,17 +18,21 @@ vector<string> solution(vector<string> record) {
     for (int i=0; i<N; i++) {
         
         vector<string> splitVec;
-        stringstream ss(record[i]);
+        stringstream ss(record[i]); //record[i]로 초기화 
         string temp;
         
         while (ss >> temp) {
             splitVec.push_back(temp);
         }
-        actionIdVec.push_back({splitVec[0], splitVec[1]});           
+        actionIdVec.push_back({splitVec[0], splitVec[1]});    
+        // Leave면 형식에 [2]가 없고 Leave id밖에 없어서 [0], [1]밖에 없음. 따라서, 최종 id = 이름 
         if (splitVec[0] != "Leave") {
             uidNameMap[splitVec[1]] = splitVec[2];
         }
     }
+
+
+
 
     for (int i=0; i<N; i++) {
         string result = "";

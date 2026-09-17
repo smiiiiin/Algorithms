@@ -16,13 +16,14 @@ bool find_block();    //블록 찾기
 void down();        //중력 작용
 void rotate();        //반시계 회전
 
+// cnt가 같으면 rainbowcnt순으로, 이렇게 보이는대로
 struct info {
     int x, y, cnt = 0, rainbowCnt = 0;
     // '<' 는 오름차순이다. 점점커지는 크레센도라 생각하기
     bool operator<(const info& i) const {
         if (cnt == i.cnt) {
             if (rainbowCnt == i.rainbowCnt) {
-                if (x == i.x) return y < i.y; //뒤에 오는게 혹은 i가 우선순위가 높은 것이다.
+                if (x == i.x) return y < i.y; 
                 else return x < i.x;
             }
             else return rainbowCnt < i.rainbowCnt;

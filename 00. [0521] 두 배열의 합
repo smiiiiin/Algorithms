@@ -1,6 +1,7 @@
 
 
-// 두 배열의 연속합이 T가 되는 경우의 수
+
+// sort후 upper&lower_bound= 두 배열의 연속합이 T가 되는 경우의 수
 #include <bits/stdc++.h>
 using namespace std;
 
